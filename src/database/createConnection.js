@@ -1,38 +1,25 @@
-import { getDatabase} from "firebase/database";
-import { initializeApp } from "firebase/app";
-
+import mongoose from 'mongoose';
 import logger from "../utils/logger.js";
-
-export  const connectToDatabase =  () => {
+import chalk from 'chalk'
+import config from '../config/default.js';
+export const connectToDatabase =  async () => {
 
     try {
+		var { production } = config
+        mongoose.set('strictQuery', true)
+		await mongoose.connect(production ? process.env.MONGOURI :  process.env.MONGOURI_TEST, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		});
 
-        const firebaseConfig = {
-            apiKey: process.env.apiKey,
-            authDomain: process.env.authDomain,
-            databaseURL: 'https://projeto-bonfire-default-rtdb.firebaseio.com',
-            projectId: process.env.projectId,
-            storageBucket: process.env.storageBucket,
-            messagingSenderId: process.env.messagingSenderId,
-            appId: process.env.apiId,
-            measurementId: process.env.measurementId
-          };
-          
-
-          const app = initializeApp(firebaseConfig);
-          const database = getDatabase();
-
-         logger.info('successful database connection')
-          return ({
-            status: "successful connection",
-        })
-
-        
-    } catch (error){
-
+        logger.info(`Database connection: ${chalk.green('mongoDB')}-${chalk.yellow(production ? 'production' : 'homologation')}.`);
+	} catch (error) {
+        console.log(error)
         return ({
             status: "unsuccessful connection",
             error: error,
         })
-    }
+	}
+
+
 }
