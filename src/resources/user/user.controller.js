@@ -1,31 +1,39 @@
 import UserService from './user.services.js';
-
+import sendError from '../../utils/error.js';
 
 export default class UserController {
         
         async signUp(req, res){
-                const data = req.body;
+                var { id, password } = req.body;
                 const userService = new UserService();
-                const user = await userService.signUp(data, res);
-                if (user) return res.status(200).json(user);
+                const response = await userService.signUp(id, password);
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);
         }
 
         async signIn(req, res){
-                const data = req.body;
+                var { id, password } = req.body;
                 const userService = new UserService();
-                const user = await userService.signIn(data, res);
-                if (user) return res.status(200).json(user);
+                const response = await userService.signIn(id, password);
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);      
         }
 
         async updateUser(req, res){
-
+                var user = req.user.id;
+                var data = req.body;
+                const userService = new UserService();
+                const response = await userService.updateUser(data, user);
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);     
         }
 
         async me(req, res){
+                var user = req.user.id;
                 const userService = new UserService();
-                const user = req?.user;
-                const currentUser = await userService.me(user, res);
-                return res.status(201).json({user: currentUser})
+                const response = await userService.me(user);
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);        
         }
     
 }

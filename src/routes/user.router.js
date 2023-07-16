@@ -7,9 +7,9 @@ const userController = new UserController();
 const userRouter = Router();
 
 
-userRouter.put('/update', userController.updateUser);
+userRouter.put('/update', userAuthenticad, userController.updateUser);
+userRouter.get('/me', userAuthenticad, userController.me);
 userRouter.post('/signup', userController.signUp);
 userRouter.post('/signin', userController.signIn);
-userRouter.get('/me', userController.me);
 
 export default userRouter

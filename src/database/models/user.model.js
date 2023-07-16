@@ -10,6 +10,10 @@ const UserSchema = new moongose.Schema({
         unique: true,
         type: Number,
     },
+    state:{
+        type: String,
+        default: 'created'
+    },
     school:{
         type: String
     },
@@ -18,9 +22,6 @@ const UserSchema = new moongose.Schema({
         default: 0
     },
     image:{
-        type: String
-    },
-    email: {
         type: String
     },
     password:{

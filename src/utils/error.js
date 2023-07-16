@@ -1,5 +1,3 @@
-import { response } from "express";
-
 import errors from "../assets/errors.json" assert { type: "json" };
 import logger from "./logger.js";
 

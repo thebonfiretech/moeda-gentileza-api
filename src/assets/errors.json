@@ -3,38 +3,8 @@
     "message": "Internal error.",
     "statusCode": 500
   },
-  "menu_unavailable": {
-    "message": "Menu unavailable.",
-    "statusCode": 404
-  },
-  "reportcard_unavailable": {
-    "message": "Report Card unavailable.",
-    "statusCode": 404
-  },
-  "calendary_unavailable": {
-    "message": "Calendary unavailable.",
-    "statusCode": 404
-  },
-  "warns_unavailable": {
-    "message": "Warns unavailable.",
-    "statusCode": 404
-  },
-
-  "message_does_not_exist": {
-    "message": "This message does not exist",
-    "statusCode": 404
-  },
-
-  "date_does_not_exist": {
-    "message": "This date does not exist",
-    "statusCode": 404
-  },
   "unauthorized_user": {
     "message": "Unauthorized user",
-    "statusCode": 401
-  },
-  "user_already_registered": {
-    "message": "User already registered",
     "statusCode": 401
   },
   "user_not_found": {
@@ -52,21 +22,5 @@
   "invalid_jwt": {
     "message": "invalid JWT",
     "statusCode": 401
-  },
-  "schedule_unavailable": {
-    "message": "Schedule unavailable.",
-    "statusCode": 404
-  },
-  "students_unavailable": {
-    "message": "Students unavailable.",
-    "statusCode": 404
-  },
-  "teachers_unavailable": {
-    "message": "Teachers unavailable.",
-    "statusCode": 404
-  },
-  "class_unavailable": {
-    "message": "Class unavailable.",
-    "statusCode": 404
   }
 }
