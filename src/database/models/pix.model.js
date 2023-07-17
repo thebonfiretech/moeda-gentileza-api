@@ -2,10 +2,7 @@ import mongoose from 'mongoose';
 
 const PixSchema = new mongoose.Schema({
     user:{
-        type: mongoose.Schema.Types.ObjectId
-    },
-    id:{
-        type: Number
+        type: String
     },
     date:{
         type: Date,
@@ -21,7 +18,7 @@ const PixSchema = new mongoose.Schema({
         type: Number
     },
     receiver:{
-        type: mongoose.Schema.Types.ObjectId
+        type: String
     }
 
 });

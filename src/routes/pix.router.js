@@ -7,9 +7,10 @@ const pixController = new PixController();
 const pixRouter = Router();
 
 
-pixRouter.post('/request', pixController.request); 
+pixRouter.get('/pay/receiver-infomation', userAuthenticad, pixController.paymentInformation);
+pixRouter.post('/request', userAuthenticad, pixController.request); 
+pixRouter.get('/extract', userAuthenticad, pixController.extract);
+pixRouter.post('/pay', userAuthenticad, pixController.pay);
 pixRouter.get('/qrcode', pixController.getQrcode);
-pixRouter.get('/extract', pixController.extract);
-pixRouter.post('/pay', pixController.pay);
 
 export default pixRouter
