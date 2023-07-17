@@ -2,8 +2,6 @@ import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs';
 
 import userModel from '../../database/models/user.model.js';
-import authConfig from "../../config/auth.js";
-import sendError from "../../utils/error.js";
 
 export default class UserService {
 

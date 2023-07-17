@@ -1,4 +1,4 @@
-{
+export default{
   "internal_error": {
     "message": "Internal error.",
     "statusCode": 500

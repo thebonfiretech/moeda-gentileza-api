@@ -1,8 +1,8 @@
-import moongose from 'moongose';
+import mongoose from 'mongoose';
 
-const BlogModel = new moongose.Schema({
+const BlogModel = new mongoose.Schema({
     creator:{
-        type: moongose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId
     },
     date:{
         type: Date,
@@ -20,4 +20,4 @@ const BlogModel = new moongose.Schema({
 });
 
 
-export default moongose.model('blog', BlogModel);
+export default mongoose.model('blog', BlogModel);

@@ -1,8 +1,8 @@
-import moongose from 'moongose';
+import mongoose from 'mongoose';
 
-const PixSchema = new moongose.Schema({
+const PixSchema = new mongoose.Schema({
     user:{
-        type: moongose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId
     },
     id:{
         type: Number
@@ -21,10 +21,10 @@ const PixSchema = new moongose.Schema({
         type: Number
     },
     receiver:{
-        type: moongose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId
     }
 
 });
 
 
-export default moongose.model('pix', PixSchema);
+export default mongoose.model('pix', PixSchema);

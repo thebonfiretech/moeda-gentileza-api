@@ -11,7 +11,7 @@ const database = connectToDatabase();
 if (database.status == 'unsuccessful connection') logger.error("unsuccessful database connection");
 
 const server = app.listen(PORT, async () => {
-  logger.info(`🚀 server started on ${chalk.yellowBright.underline("http://localhost:" + PORT)}.`);
+  logger.success(`🚀 server started on ${chalk.yellowBright.underline("http://localhost:" + PORT)}.`);
 });
 
 process.on("SIGINT", () => {

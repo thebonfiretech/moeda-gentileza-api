@@ -12,9 +12,9 @@ export const connectToDatabase =  async () => {
 			useUnifiedTopology: true
 		});
 
-        logger.info(`Database connection: ${chalk.green('mongoDB')}-${chalk.yellow(production ? 'production' : 'homologation')}.`);
+        logger.success(`Database connection: ${chalk.green('mongoDB')}-${chalk.yellow(production ? 'production' : 'homologation')}.`);
 	} catch (error) {
-        console.log(error)
+        logger.error(error)
         return ({
             status: "unsuccessful connection",
             error: error,

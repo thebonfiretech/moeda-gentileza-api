@@ -1,4 +1,4 @@
-import errors from "../assets/errors.json" assert { type: "json" };
+import errors from "../assets/errors.js" 
 import logger from "./logger.js";
 
 const sendError = (res, errorMessage, replaceMessage) => {

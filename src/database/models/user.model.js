@@ -1,6 +1,6 @@
-import moongose from 'moongose';
+import mongoose from 'mongoose';
 
-const UserSchema = new moongose.Schema({
+const UserSchema =  mongoose.Schema({
     name:{
         type: String,
         required: true
@@ -45,4 +45,4 @@ const UserSchema = new moongose.Schema({
 });
 
 
-export default moongose.model('user', UserSchema);
+export default mongoose.model('user', UserSchema);

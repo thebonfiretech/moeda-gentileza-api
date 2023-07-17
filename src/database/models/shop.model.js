@@ -1,8 +1,8 @@
-import moongose from 'moongose';
+import mongoose from 'mongoose';
 
-const ShopSchema = new moongose.Schema({
+const ShopSchema = new mongoose.Schema({
     creator:{
-        type: moongose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId
     },
     date:{
         type: Date,
