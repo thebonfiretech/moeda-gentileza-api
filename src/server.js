@@ -11,10 +11,13 @@ const database = connectToDatabase();
 if (database.status == 'unsuccessful connection') logger.error("unsuccessful database connection");
 
 const server = app.listen(PORT, async () => {
-  logger.success(`🚀 server started on ${chalk.yellowBright.underline("http://localhost:" + PORT)}.`);
+  logger.success(`🚀 Server started on ${chalk.yellowBright.underline("http://localhost:" + PORT)}`);
+  logger.info(`The pid is ${chalk.redBright.underline(process.pid)} and date ${chalk.blueBright.underline(new Date().toLocaleTimeString())}`)
 });
+
 
 process.on("SIGINT", () => {
   server.close();
   logger.warning("finished application");
+  process.exit();
 });
