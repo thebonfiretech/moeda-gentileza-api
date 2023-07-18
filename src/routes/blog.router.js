@@ -7,9 +7,9 @@ const blogController = new BlogController();
 const blogRouter = Router();
 
 
-blogRouter.delete('/delete', userAuthenticad, blogController.deletePost);
-blogRouter.post('/create', userAuthenticad, blogController.createPost); 
-blogRouter.put('/update', userAuthenticad, blogController.updatePost);
+blogRouter.delete('/delete', userAuthenticad, blogController.deletePost); //admin
+blogRouter.post('/create', userAuthenticad, blogController.createPost); //admin
+blogRouter.put('/update', userAuthenticad, blogController.updatePost);//admin
 blogRouter.get('/post-list', blogController.getPostList);
 blogRouter.get('/', blogController.getPost);
 
