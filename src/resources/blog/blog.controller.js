@@ -4,34 +4,49 @@ import BlogService from './blog.services.js';
 export default class BlogController {
         
         async createPost(req, res){
-                const BlogService = new BlogService();
-                const response = await BlogService.createPost();
-                return { response };
+                var user = req.user.id;
+                var { title, creator, description, resume, image } = req.body;
+                const blogService = new BlogService();
+                const response = await blogService.createPost(user, title, creator, description, resume, image);
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);  
+               
         }
 
         async updatePost(req, res){
-                const BlogService = new BlogService();
-                const response = await BlogService.updatePost();
-                return { response };
+                var data = req.body;
+                const blogService = new BlogService();
+                const response = await blogService.updatePost(data);
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);  
+                
         }
 
         
         async deletePost(req, res){
-                const BlogService = new BlogService();
-                const response = await BlogService.deletePost();
-                return { response };
+                var data = req.body;
+                const blogService = new BlogService();
+                const response = await blogService.deletePost(data);
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);  
+                
         }
 
         async getPostList(req, res){
-                const BlogService = new BlogService();
-                const response = await BlogService.getPostList();
-                return { response };
+                const blogService = new BlogService();
+                const response = await blogService.getPostList();
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);  
+                
         }
 
         async getPost(req, res){
-                const BlogService = new BlogService();
-                const response = await BlogService.getPost();
-                return { response };
+                var { id } = req.body;
+                const blogService = new BlogService();
+                const response = await blogService.getPost(id);
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);  
+                
         }
 
 }

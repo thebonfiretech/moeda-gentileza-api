@@ -2,11 +2,16 @@ import mongoose from 'mongoose';
 
 const BlogModel = new mongoose.Schema({
     creator:{
-        type: String
+        name:{
+            type: String
+        },
+        id:{
+            type: Number
+        }
     },
     date:{
-        type: Date,
-        default: Date.now()
+        default: Date.now(),
+        type: Date
     },
     description:{
         type: String
@@ -15,6 +20,9 @@ const BlogModel = new mongoose.Schema({
         type: String
     },
     resume:{
+        type: String
+    },
+    image:{
         type: String
     }
 });

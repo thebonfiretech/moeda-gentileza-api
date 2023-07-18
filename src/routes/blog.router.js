@@ -7,10 +7,10 @@ const blogController = new BlogController();
 const blogRouter = Router();
 
 
+blogRouter.delete('/delete', userAuthenticad, blogController.deletePost);
+blogRouter.post('/create', userAuthenticad, blogController.createPost); 
+blogRouter.put('/update', userAuthenticad, blogController.updatePost);
 blogRouter.get('/post-list', blogController.getPostList);
-blogRouter.delete('/delete', blogController.deletePost);
-blogRouter.post('/create', blogController.createPost); 
-blogRouter.put('/update', blogController.updatePost);
 blogRouter.get('/', blogController.getPost);
 
 export default blogRouter
