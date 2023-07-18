@@ -11,6 +11,10 @@ export default{
     "message": "User not found",
     "statusCode": 404
   },
+  "product_not_found": {
+    "message": "Product not found",
+    "statusCode": 404
+  },
   "post_not_found": {
     "message": "User not found",
     "statusCode": 404

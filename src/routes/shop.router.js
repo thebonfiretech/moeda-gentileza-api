@@ -10,7 +10,6 @@ const shopRouter = Router();
 shopRouter.get('/product-list', shopController.getProductList); 
 shopRouter.delete('/delete', shopController.deleteProduct); //admin
 shopRouter.post('/create', shopController.CreateProduct); //admin
-shopRouter.put('/remove', shopController.removeProduct); //admin
 shopRouter.put('/update', shopController.UpdateProduct); //admin
 shopRouter.get('/product', shopController.getProduct); 
 shopRouter.post('/pay', shopController.payProduct); 

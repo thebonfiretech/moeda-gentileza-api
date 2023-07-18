@@ -2,7 +2,12 @@ import mongoose from 'mongoose';
 
 const ShopSchema = new mongoose.Schema({
     creator:{
-        type: String
+        name:{
+            type: String
+        },
+        id:{
+            type: Number
+        }
     },
     date:{
         type: Date,
@@ -14,11 +19,19 @@ const ShopSchema = new mongoose.Schema({
     title: {
         type: String
     },
-    productsSold:{
+    productSold:{
         type: String
     },
     value:{
-        type: Number
+        type: Number,
+        default: 0
+    },
+    stock:{
+        type: Number,
+        default: 0
+    },
+    images:{
+        type: Array
     }
 });
 
