@@ -1,5 +1,5 @@
-import userModel from "../../database/models/user.model";
-import blogModel from "../../database/models/blog.model";
+import userModel from "../../database/models/user.model.js";
+import blogModel from "../../database/models/blog.model.js";
 
 export default class BlogService {
 

@@ -45,6 +45,14 @@ export default class ShopController {
                 return res.status(200).json(response);      
         }
 
+        async updateUserProduct(req, res){
+                var { id } = req.body;
+                const shopService = new ShopService();
+                const response = await shopService.updateUserProduct(id);
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);      
+        }
+
         async deleteProduct(req, res){
                 var data = req.body;
                 const shopService = new ShopService();

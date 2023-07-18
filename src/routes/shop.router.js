@@ -7,6 +7,7 @@ const shopController = new ShopController();
 const shopRouter = Router();
 
 
+shopRouter.put('/update/user/product', shopController.updateUserProduct); //admin
 shopRouter.get('/product-list', shopController.getProductList); 
 shopRouter.delete('/delete', shopController.deleteProduct); //admin
 shopRouter.post('/create', shopController.CreateProduct); //admin
