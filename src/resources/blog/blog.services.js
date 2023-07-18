@@ -3,7 +3,7 @@ import blogModel from "../../database/models/blog.model.js";
 
 export default class BlogService {
 
-  async createPost(user, title, creator, description, resume, image){
+  async createPost(user, title, description, resume, image){
     try {
       var findUser = await userModel.findOne({id: user}).select("-password");
       if (!findUser) return { error: "user_not_found"}; 
@@ -13,10 +13,10 @@ export default class BlogService {
           name: findUser.name,
           id: user
         },
-        receiver,
         description,
-        value,
-        paidIn: Date.now()
+        title,
+        resume,
+        image
 
       });
 

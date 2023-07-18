@@ -5,9 +5,9 @@ export default class BlogController {
         
         async createPost(req, res){
                 var user = req.user.id;
-                var { title, creator, description, resume, image } = req.body;
+                var { title, description, resume, image } = req.body;
                 const blogService = new BlogService();
-                const response = await blogService.createPost(user, title, creator, description, resume, image);
+                const response = await blogService.createPost(user, title, description, resume, image);
                 if (response?.error) return sendError(res, response.error);
                 return res.status(200).json(response);  
                
