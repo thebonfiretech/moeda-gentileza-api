@@ -20,7 +20,8 @@ const ShopSchema = new mongoose.Schema({
         type: String
     },
     productSold:{
-        type: String
+        type: String,
+        default: 0
     },
     value:{
         type: Number,

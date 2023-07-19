@@ -15,7 +15,7 @@ const PixSchema = new mongoose.Schema({
         type: Number
     },
     paidIn:{
-        type: Number
+        type: Date
     },
     receiver:{
         type: String

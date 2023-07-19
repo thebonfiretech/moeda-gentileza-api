@@ -5,13 +5,13 @@ export default class BlogService {
 
   async createPost(user, title, description, resume, image){
     try {
-      var findUser = await userModel.findOne({id: user}).select("-password");
+      var findUser = await userModel.findById(user).select("-password");
       if (!findUser) return { error: "user_not_found"}; 
 
       var post = new blogModel({
         creator:{
           name: findUser.name,
-          id: user
+          id: findUser.id
         },
         description,
         title,
@@ -25,6 +25,7 @@ export default class BlogService {
       return post
 
     } catch (error) {
+      console.log(error)
       return { error: "internal_error" } ;
     }
   }
@@ -34,7 +35,7 @@ export default class BlogService {
       var updatedPost = await blogModel.findOneAndUpdate(
         {_id: data._id},
         {$set: {
-          data
+          ...data
         }},
         { new: true, upsert: true, setDefaultsOnInsert: true }
       );
@@ -64,7 +65,7 @@ export default class BlogService {
   async getPost(id){
     try {
       var post = await blogModel.findOne({_id: id});
-      if (post) return { error: "post_not_found"}; 
+      if (!post) return { error: "post_not_found"}; 
 
       return post
     } catch (error) {

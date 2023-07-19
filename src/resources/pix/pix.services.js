@@ -6,7 +6,7 @@ export default class PixService {
 
   async pay(user, receiver, value, description="") {
     try {
-      var findUser = await userModel.findOne({id: user}).select("-password");
+      var findUser = await userModel.findById(user).select("-password");
       if (!findUser) return { error: "user_not_found"}; 
 
       var findReceiver = await userModel.findOne({id: receiver}).select("-password");
@@ -25,15 +25,14 @@ export default class PixService {
         receiver,
         description,
         value,
-        paidIn: Date.now()
-
       });
 
       await pix.save();
 
-      return { user: findUser, receiver: findReceiver};
+      return { user: findUser };
 
     } catch (error) {
+      console.log(error)
       return { error: "internal_error" } ;
     }
   }
@@ -50,7 +49,7 @@ export default class PixService {
 
   async request(user, value, description=""){
     try {
-      var findUser = await userModel.findOne({id: user}).select("-password");
+      var findUser = await userModel.findById(user).select("-password");
       if (!findUser) return { error: "user_not_found"}; 
 
       var payload = {
@@ -64,13 +63,14 @@ export default class PixService {
       return token
 
     } catch (error) {
+      console.log(error)
       return { error: "internal_error" } ;
     }
   }
 
   async extract(user) {
     try {
-      return await pixModel.find({ user }).sort({ date: -1 }).limit(30);
+      return await pixModel.find({user}).sort({ date: -1 }).limit(30);
     } catch (error) {
       return { error: "internal_error" } ;
     }

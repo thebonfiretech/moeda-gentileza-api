@@ -9,6 +9,7 @@ const userRouter = Router();
 
 userRouter.put('/update', userAuthenticad, userController.updateUser);
 userRouter.get('/me', userAuthenticad, userController.me);
+userRouter.post('/create', userController.createUser); //admin
 userRouter.post('/signup', userController.signUp);
 userRouter.post('/signin', userController.signIn);
 

@@ -21,7 +21,7 @@ export default class PixController {
         }
 
         async request(req, res){
-                var { value } = req.body;
+                var { value, description } = req.body;
                 var user = req.user.id;
                 const userService = new PixService();
                 const response = await userService.request(user, value, description);
@@ -31,8 +31,9 @@ export default class PixController {
 
         
         async extract(req, res){
+                var user = req.user.id;
                 const userService = new PixService();
-                const response = await userService.extract();
+                const response = await userService.extract(user);
                 if (response?.error) return sendError(res, response.error);
                 return res.status(200).json(response);
         }

@@ -35,5 +35,13 @@ export default class UserController {
                 if (response?.error) return sendError(res, response.error);
                 return res.status(200).json(response);        
         }
+
+        async createUser(req, res){
+                var {name, id, institution, role} = req.body;
+                const userService = new UserService();
+                const response = await userService.createUser(name, id, institution, role);
+                if (response?.error) return sendError(res, response.error);
+                return res.status(200).json(response);        
+        }
     
 }

@@ -72,10 +72,47 @@ export default class UserService {
       var updatedUser = await userModel.findOneAndUpdate(
         {_id: user},
         {$set: {
-          data
+         ...data
         }},
         { new: true, upsert: true, setDefaultsOnInsert: true }
-      );
+      ).select('-password');
+
+      return updatedUser
+
+    } catch (error) {
+      return { error: "internal_error" } ;
+    }
+  }
+
+  async createUser(name, id, institution, role="default"){
+    try {
+      const isUnique = async (x) => !(await userModel.findOne({ id: x }));
+
+      const generateId = async () => {
+        while (true) {
+            const uniqueID = Math.floor(100000 + Math.random() * 900000);
+            if (isUnique(uniqueID)) return uniqueID;
+        }
+    };
+
+    if (id){
+      id = Number(id)
+      if (!(await isUnique(id))) id = await generateId();
+    } else {
+      id = await generateId();
+    }
+    
+      var user = new userModel({
+        name,
+        id,
+        institution,
+        role
+
+      });
+
+      await user.save()
+
+      return user;
 
     } catch (error) {
       return { error: "internal_error" } ;

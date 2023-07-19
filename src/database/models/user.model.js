@@ -14,7 +14,7 @@ const UserSchema =  mongoose.Schema({
         type: String,
         default: 'created'
     },
-    school:{
+    institution:{
         type: String
     },
     wallet:{

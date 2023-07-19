@@ -26,13 +26,13 @@ export default class ShopService {
 
   async CreateProduct(user, description, title, value, stock, images){
     try {
-      var findUser = await userModel.findOne({id: user}).select("-password");
+      var findUser = await userModel.findById(user).select("-password");
       if (!findUser) return { error: "user_not_found"}; 
 
       var product = new shopModel({
         creator:{
           name: findUser.name,
-          id: user
+          id: findUser.id
         },
         title,
         stock,
@@ -71,7 +71,7 @@ export default class ShopService {
       var product = await shopModel.findOne({_id: id});
       if (!product) return { error: "product_not_found"}; 
 
-      var findUser = await userModel.findOne({id: user}).select("-password");
+      var findUser = await await userModel.findById(user).select("-password");
       if (!findUser) return { error: "user_not_found"}; 
 
       if (findUser.wallet < product.value) return { error: "insufficient_funds"};
@@ -101,8 +101,9 @@ export default class ShopService {
   async updateUserProduct(id){
     try {
       
-      var sale = await sales.findOne({_id: id});
+      var sale = await salesModel.findOne({_id: id});
       if (!sale) return { error: "product_not_found"}; 
+      if (sale.status == "delivered") return { error: "product_not_found"}; 
 
 
       var product = await shopModel.findOne({_id: sale.id});

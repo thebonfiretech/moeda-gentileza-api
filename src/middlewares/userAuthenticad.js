@@ -8,7 +8,7 @@ const userAuthenticad = (req, res, next) => {
   if (!authHeader) return sendError(res, "jwt_not_sent");
 
   try {
-    jwt.verify(authHeader, process.env.jwt, (err, decoded) => {
+    jwt.verify(authHeader, process.env.JWT, (err, decoded) => {
       if (err) sendError(res, "invalid_jwt");
       req.user = {
         id: decoded._id,

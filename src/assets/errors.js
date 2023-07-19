@@ -16,7 +16,7 @@ export default{
     "statusCode": 404
   },
   "post_not_found": {
-    "message": "User not found",
+    "message": "Post not found",
     "statusCode": 404
   },
   "receiver_not_found": {
