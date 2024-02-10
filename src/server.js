@@ -7,11 +7,11 @@ import config from './config/default.js'
 import { app } from './app.js';
 
 log.setup({
-    prefix: '(Polivalente API)',
+    prefix: '(Gentileza API)',
 });
 
 
-const PORT = process.env.PORT || 6060
+const PORT = process.env.PORT || 7070
 const server = app.listen(PORT, async (a) => {
     log.info(`🚀 Server iniciado em ${chalk.cyan('http://localhost:')}${chalk.cyan(process.env.PORT || 6060)}.`);
 });
