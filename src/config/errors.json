@@ -23,6 +23,10 @@
         "message": "Turma existente.",
         "statusCode": 401
     },
+    "user_already_exists": {
+        "message": "Usuario já criado.",
+        "statusCode": 401
+    },
     "user_not_found":{
         "message": "Usuario não encontrado.",
         "statusCode": 404

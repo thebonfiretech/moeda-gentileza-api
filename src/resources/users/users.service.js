@@ -5,16 +5,15 @@ import userModel from "../../models/user.js";
 
 export default class usersService {
 
-    async signUp({name, email, password}){
+    async signUp({name, governamentalId, password}){
         try {
             const findUsers = await userModel.find({
               status: "notRegistered",
             });
-            var findUser = findUsers.find(x => x.name.trim().replace(/\s/g, '') == name.trim().replace(/\s/g, ''));
+            var findUser = findUsers.find(x => x.governamentalId.toLocaleLowerCase().trim().replace(/\s/g, '') == governamentalId.toLocaleLowerCase().trim().replace(/\s/g, ''));
             if (!findUser) return { error: "user_not_registered" };
-            
-            const findEmail = await userModel.findOne({email});
-            if (findEmail) return { error: "email_already_exists"};
+
+            if (findUser.status == 'logged') return { error: "user_already_exists"};
 
             const salt = await bcrypt.genSalt(10);
             const hash = await bcrypt.hash(password, salt);
@@ -22,7 +21,7 @@ export default class usersService {
             const user = await userModel.findByIdAndUpdate(findUser._id, {
                 status: 'logged',
                 password: hash,
-                email, 
+                governamentalId, 
                 name, 
 
             }, {new: true});
@@ -31,25 +30,28 @@ export default class usersService {
                 _id: user._id,
                 name
             }
-            var token = jwt.sign(payload, process.env.JWT, { expiresIn : '5 days'});
+            var token = jwt.sign(payload, process.env.JWT);
             return { token }
 
         } catch (err) {
             return { error: "internal_error" } ;
         }
     }
-    async signIn({email, password}){
+    async signIn({governamentalId, password}){
         try {
-           const user = await userModel.findOne({email});
-           if (!user) return { error: "user_not_registered"};
+           const user = await userModel.findOne({governamentalId});
+           if (!user || user.status  != 'logged') return { error: "user_not_registered"};
 
-           const isMatch = bcrypt.compare(password, user.password);
+           const salt = await bcrypt.genSalt(10);
+           const hash = await bcrypt.hash(password, salt);
+           const isMatch = hash === user.password;
            if (!isMatch) return { error: "invalid_credentials"};
 
             var payload = {
                 _id: user._id
             }
-            var token = jwt.sign(payload, process.env.JWT, { expiresIn : '5 days'});
+            
+            var token = jwt.sign(payload, process.env.JWT, {});
             return { token }
            
         } catch (err) {
@@ -58,7 +60,7 @@ export default class usersService {
     }
     async getUserById({id}){
         try {
-           const user = await userModel.findById(id);
+           const user = await userModel.findById(id).select('-password');
            if (!user) return { error: "user_not_registered"};
            return { user };
         } catch (err) {
@@ -70,7 +72,6 @@ export default class usersService {
         try {
            const user = await userModel.findById(id);
            if (!user) return { error: "user_not_registered"};
-           console.log(data)
 
            const newUser = await userModel.findByIdAndUpdate(id, {$set: {...data}}, {new: true, upsert: true});
            return { user: newUser};
@@ -78,10 +79,12 @@ export default class usersService {
             return { error: "internal_error" } ;
         }
     }
-    async createUser({name, role, flags=[]}){
+    async createUser({governamentalId, role, flags=[]}){
         try {
+            const findUser = await userModel.findOne({governamentalId});
+            if (findUser) return { error: "user_already_exists"};
             const user = new userModel({
-                name,
+                governamentalId,
                 role,
                 flags
             });
@@ -91,13 +94,12 @@ export default class usersService {
             return { user }
            
         } catch (err) {
-            console.log(err)
             return { error: "internal_error" } ;
         }
     }
     async getUsers(){
         try {
-           return await userModel.find().sort({date: -1});
+           return await userModel.find().sort({date: -1}).select('-passoword');
         } catch (err) {
             return { error: "internal_error" } ;
         }
