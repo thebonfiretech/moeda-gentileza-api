@@ -18,7 +18,7 @@ export default class EconomyService {
 
     async getTransactions(id){
         try {
-            return await transactionModel.find({author: id});
+            return await transactionModel.find({author: id}).sort({date: -1});
         } catch (err) {
             return { error: "internal_error" } ;         
         }
@@ -50,6 +50,33 @@ export default class EconomyService {
                 });
             }
             return {};
+        } catch (err) {
+            return { error: "internal_error" } ;
+        }
+    }
+
+    async updateInvestment({ id, data}){
+        try {
+            var investiment = await investimentModel.findByIdAndUpdate(id, {$set: {...data}}, {new: true, upsert: true});
+            return investiment;
+        } catch (err) {
+            return { error: "internal_error" } ;
+        }
+    }
+    async createInvestment({ name, description, percentage, penalty }){ 
+        try {
+            const investiment = new investimentModel({
+                name, percentage, penalty, description
+            });
+            await investiment.save();
+            return investiment;
+        } catch (err) {
+            return { error: "internal_error" } ;
+        }
+    }
+    async getInvestment(){
+        try {
+            return await investimentModel.find().sort({date: -1});
         } catch (err) {
             return { error: "internal_error" } ;
         }

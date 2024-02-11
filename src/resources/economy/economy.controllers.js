@@ -16,4 +16,22 @@ export default class EconomyController {
     if (response?.error) return sendError(res, response.error);
     return res.status(200).json(response);
   }
+  async createInvestment(req, res) {
+    const service = new EconomyService();
+    const response = await service.createInvestment(req.body);
+    if (response?.error) return sendError(res, response.error);
+    return res.status(200).json(response);
+  }
+  async getInvestiments(req, res) {
+    const service = new EconomyService();
+    const response = await service.getInvestment(req.body);
+    if (response?.error) return sendError(res, response.error);
+    return res.status(200).json(response);
+  }
+  async updateInvestiment(req, res) {
+    const service = new EconomyService();
+    const response = await service.updateInvestment(req.body);
+    if (response?.error) return sendError(res, response.error);
+    return res.status(200).json(response);
+  }
 }
