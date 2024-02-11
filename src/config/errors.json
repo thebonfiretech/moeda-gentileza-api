@@ -31,6 +31,18 @@
         "message": "Usuario não encontrado.",
         "statusCode": 404
     },
+    "from_not_found":{
+        "message": "Pagante não encontrado.",
+        "statusCode": 404
+    },
+    "insuficient_wallet":{
+        "message": "Gentilezas insuficientes para transação.",
+        "statusCode": 404
+    },
+    "to_not_found":{
+        "message": "Recebedor não encontrado.",
+        "statusCode": 404
+    },
     "class_not_found":{
         "message": "Turma não encontrada.",
         "statusCode": 404
