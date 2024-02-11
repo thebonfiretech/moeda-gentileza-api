@@ -16,6 +16,14 @@ export default class EconomyService {
         }
     }
 
+    async getTransactions(id){
+        try {
+            return await transactionModel.find({author: id});
+        } catch (err) {
+            return { error: "internal_error" } ;         
+        }
+    }
+
     async pix({from, to, value, description}){
         try {
             if (!from.ignore){
@@ -34,8 +42,7 @@ export default class EconomyService {
                 var findUser = await userModel.findById(to.id);
                 if (!findUser) return { error: "to_not_found"};
 
-                if (findUser.wallet < value) return { error: "insuficient_wallet"};
-                await userModel.findByIdAndUpdate(to.id, {$set: {wallet: (findUser.wallet - value)}}, {new: true, upsert: true});
+                await userModel.findByIdAndUpdate(to.id, {$set: {wallet: (findUser.wallet + value)}}, {new: true, upsert: true});
                 this.addTransaction({
                     type: 'pix',
                     author: to.id,
