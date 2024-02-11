@@ -10,9 +10,6 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  userClass:{
-    type: String
-  },
   role:{
     type: String
   },
@@ -23,12 +20,41 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'notRegistered'
   },
-  grades:{
-    type:Object
+  governamentalId:{
+    type: String
   },
-  teacherClass:{
-    type: Object
-  }
+  wallet:{
+    type: Number,
+    default: 0
+  },
+  investments:[
+    {
+      name: {
+        type: String,
+      },
+      id:{
+        type: String,
+      },
+      wallet:{
+        type: Number
+      },
+      performance:{
+        type: Number
+      },
+      lastUpdate:{
+        type: Date
+      },
+      initialDate:{
+        type: Date
+      },
+      percentage: {
+        type: Number,
+      },
+      penalty: {
+        type: Number,
+      }
+    }
+  ]
 });
 
 export default mongoose.model('user', UserSchema);
