@@ -85,7 +85,7 @@ export default class EconomyService {
         try {
                 const user = await userModel.findById(id);
                 if (!user) return { error: "user_not_found"};
-                //if (user.wallet < value) return { error: "insuficient_wallet"};
+                if (user.wallet < value) return { error: "insuficient_wallet"};
 
                 var newInvestments;
                 var hasInvestment = user.investments.find(x => x.id == investiment._id);
@@ -103,7 +103,6 @@ export default class EconomyService {
                     ]
                 } else {
                     var findInvestmentIndex = user.investments.findIndex(x => x.id == investiment._id);
-                    var findInvestment = user.investments[findInvestmentIndex];
                     newInvestments = user.investments;
                     newInvestments[findInvestmentIndex].lastUpdate = Date.now();
                     newInvestments[findInvestmentIndex].wallet = (newInvestments[findInvestmentIndex].wallet + value);
