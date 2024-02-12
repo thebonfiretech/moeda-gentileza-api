@@ -34,4 +34,11 @@ export default class EconomyController {
     if (response?.error) return sendError(res, response.error);
     return res.status(200).json(response);
   }
+  async addUserInvestment(req, res) {
+    var id = req.user._id;
+    const service = new EconomyService();
+    const response = await service.addUserInvestment(id, req.body);
+    if (response?.error) return sendError(res, response.error);
+    return res.status(200).json(response);
+  }
 }

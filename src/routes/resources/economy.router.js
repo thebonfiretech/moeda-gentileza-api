@@ -6,6 +6,7 @@ import auth from '../../middlewares/auth.js'
 const service = new EconomyController();
 const economyRouter = Router();
 
+economyRouter.post("/investment/add-wallet", auth, service.addUserInvestment);
 economyRouter.post("/investment/create", auth, service.createInvestment);
 economyRouter.put("/investment/update", auth, service.updateInvestiment);
 economyRouter.get("/investment/", auth, service.getInvestiments);

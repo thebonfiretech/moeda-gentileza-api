@@ -81,5 +81,52 @@ export default class EconomyService {
             return { error: "internal_error" } ;
         }
     }
+    async addUserInvestment(id, {investiment, value}){
+        try {
+                const user = await userModel.findById(id);
+                if (!user) return { error: "user_not_found"};
+                //if (user.wallet < value) return { error: "insuficient_wallet"};
+
+                var newInvestments;
+                var hasInvestment = user.investments.find(x => x.id == investiment._id);
+                if (!hasInvestment) {
+
+                    newInvestments = [
+                        ...user.investments,
+                        {
+                            ...investiment,
+                            id: investiment._id,
+                            wallet: value,
+                            lastUpdate: Date.now(),
+                            initialDate: Date.now()
+                        }
+                    ]
+                } else {
+                    var findInvestmentIndex = user.investments.findIndex(x => x.id == investiment._id);
+                    var findInvestment = user.investments[findInvestmentIndex];
+                    newInvestments = user.investments;
+                    newInvestments[findInvestmentIndex].lastUpdate = Date.now();
+                    newInvestments[findInvestmentIndex].wallet = (newInvestments[findInvestmentIndex].wallet + value);
+
+                } 
+
+                var newUser = await userModel.findByIdAndUpdate(id, {$set: {
+                    wallet: (user.wallet - value),
+                    investments: newInvestments
+                }}, {new: true, upsert: true});
+
+                this.addTransaction({
+                    type: 'transaction',
+                    author: id,
+                    description: `Adicionou ${value} gentilezas no investimento ${investiment?.name}`
+                });
+
+                return newUser;
+
+        } catch (err) {
+            console.log(err)
+            return { error: "internal_error" } ;
+        }
+    }
 
 }
