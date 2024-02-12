@@ -42,9 +42,7 @@ export default class usersService {
            const user = await userModel.findOne({governamentalId});
            if (!user || user.status  != 'logged') return { error: "user_not_registered"};
 
-           const salt = await bcrypt.genSalt(10);
-           const hash = await bcrypt.hash(password, salt);
-           const isMatch = hash === user.password;
+           const isMatch = await bcrypt.compare(password, user.password);
            if (!isMatch) return { error: "invalid_credentials"};
 
             var payload = {
